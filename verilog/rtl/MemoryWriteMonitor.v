@@ -35,7 +35,8 @@ module MemoryWriteMonitor(
     reg unauthorizedWriteDetected;
     reg [31:0]i;
     // Initialize authorized module data on reset
-    always @(posedge clk) begin
+    always @(posedge clk) 
+    begin
         if (rst) begin
             // Reset internal registers
             numAuthorizedModules <= 0;
@@ -49,39 +50,27 @@ module MemoryWriteMonitor(
             authorizedModuleMemory[1] <= 4'b1100; // Additional authorized memory region
             authorizedModuleIDs[1] <= 2'b10;      // Additional authorized module ID
             
-             unauthorizedWriteAlert <= 0;
-            unauthorizedModuleID <= 2'b00;
-            unauthorizedWriteAddress <= 4'b0000;
-            unauthorizedWriteData <= 4'b0000;
-            alertValid <= 0;
-            blockData <= 0;
+           authorizedModuleMemory[2] <= 4'b0000; // Additional authorized memory region
+            authorizedModuleIDs[2] <= 2'b00;  
+            
+            authorizedModuleMemory[3] <= 4'b0000; // Additional authorized memory region
+            authorizedModuleIDs[3] <= 2'b00;  
             
             // Initialize other entries (if needed) to zero or non-zero values as required
         end else begin
             // Initialize the number of authorized modules (customize as needed)
             numAuthorizedModules <= 2; // Set the number of authorized modules
-        end
-    end
+            
+             unauthorizedWriteDetected <= 1; // Assume it's unauthorized
 
-    // Logic to detect unauthorized writes
-    always @(posedge clk ) begin
-       // integer i; // Declare the loop variable
-
-        if (rst) begin
-            // Reset detection logic
-            unauthorizedWriteIndex <= 0;
-            unauthorizedWriteDetected <= 0;
-        end else begin
-            // Detection logic (compare writeData with authorizedModuleMemory)
-            unauthorizedWriteDetected <= 1; // Assume it's unauthorized
-
-            for (i = 0; i < numAuthorizedModules; i = i + 1) begin
+            for (i = 0; i < 4; i = i + 1) begin
                 if (writeModuleID == authorizedModuleIDs[i] && writeData == authorizedModuleMemory[i]) begin
                     unauthorizedWriteDetected <= 0; // Reset if it's authorized
                 end
-            end
         end
     end
+ end
+    
 
     // Alert generation and output logic
   always @(*) begin
@@ -93,7 +82,9 @@ module MemoryWriteMonitor(
             unauthorizedWriteData <= writeData;
             alertValid <= 1;
             blockData <= 1;
-        end else begin
+        end 
+        else 
+        begin
             // No unauthorized write detected
             unauthorizedWriteAlert <= 0;
             unauthorizedModuleID <= 2'b00;
