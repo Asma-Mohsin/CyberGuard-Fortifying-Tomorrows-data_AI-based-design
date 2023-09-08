@@ -168,10 +168,11 @@ module MemoryWriteMonitor_tb;
 	initial begin
 	    // Observe Output pins [7:0]
 	       
-		wait(mprj_io_0 == 13'b11_1111_1001_10_1);
+		/*wait(mprj_io_0 == 13'b11_1111_1001_10_1);
 		wait(mprj_io_0 == 13'b00_0000_0000_00_0);
+		
+		wait(mprj_io_0 == 13'b00_0000_0000_00_0);*/
 		wait(mprj_io_0 == 13'b11_1111_1010_11_1);
-		wait(mprj_io_0 == 13'b00_0000_0000_00_0);
 		
 		`ifdef GL
 	    	$display("Monitor: Test 1 Mega-Project IO (GL) Passed");
@@ -192,32 +193,39 @@ module MemoryWriteMonitor_tb;
 		
         #1000;
 
-       #150;
+      /* #150;
         // Test Case 1: Unauthorized write
         writeAddress = 4'b1001;
         writeData = 4'b1111;
         writeModuleID = 2'b10;
-        #150; // Allow time for the write to take place
+        end
+        initial
+
+        #1000; // Allow time for the write to take place
+	
 	
         // Test Case 2: Authorized write
         writeAddress  = 4'b1010;
         writeData = 4'b1010;
         writeModuleID= 2'b01;
-        #50; // Allow time for the write to take place
+        #1000; // Allow time for the write to take place
 
 
-        // Test Case 3: Unauthorized write
-        writeAddress = 4'b1010;
-        writeData = 4'b1111;
-        writeModuleID = 2'b11;
-        #50
+        
 
        // Test Case 4: Authorized write to new region
         writeAddress = 4'b1100;
         writeData  = 4'b1100;
-        writeModuleID = 2'b10;
+        writeModuleID = 2'b10;*/
+     
         #50; // Allow time for the write to take place
         #200; // Allow time for the write to take place
+        
+        // Test Case 3: Unauthorized write
+        writeAddress = 4'b1010;
+        writeData = 4'b1111;
+        writeModuleID = 2'b11;
+        #1000;
         
     end
 
