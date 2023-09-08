@@ -43,7 +43,8 @@ module user_project_wrapper #(
     inout vssd2,	// User area 2 digital ground
 `endif
 
-    // Wishbone Slave ports (WB MI A)
+   
+ // Wishbone Slave ports (WB MI A)
     input wb_clk_i,
     input wb_rst_i,
     input wbs_stb_i,
@@ -76,6 +77,7 @@ module user_project_wrapper #(
 
     // User maskable interrupt signals
     output [2:0] user_irq
+  
 );
 
 /*--------------------------------------*/

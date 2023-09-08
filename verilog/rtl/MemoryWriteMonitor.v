@@ -1,3 +1,4 @@
+`default_nettype none
 module MemoryWriteMonitor(
     `ifdef USE_POWER_PINS
        inout vccd1,  // User area 1 1.8V power
