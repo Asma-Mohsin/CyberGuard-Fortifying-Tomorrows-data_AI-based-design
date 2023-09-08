@@ -81,3 +81,5 @@ The Memory Write Monitor Block is a powerful tool for safeguarding against unaut
 
 **Fine-Grained Access Control**: Implementing finer-grained access controls to allow specific modules or users to write to specific memory regions based on configurable policies.
     
+# ChatGPT chat link
+https://chat.openai.com/share/6a6cdce1-41f5-46b1-9038-17069a37c643
